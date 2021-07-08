@@ -1,4 +1,4 @@
-pipeline {
+apipeline {
     agent any
     stages {
         stage('Build') {
@@ -41,7 +41,7 @@ pipeline {
             steps {
                 input 'Deploy to Production'
                 milestone(1)
-                withCredentials ([usernamePassword(credentialsId: 'webserver_login', usernameVariable: 'cloud_user', passwordVariable: 'T!NK2Qgy')]) {
+                withCredentials ([usernamePassword(credentialsId: 'webserver_login', usernameVariable: 'deploy', passwordVariable: 'T!NK2Qgy')]) {
                     script {
                         sh "sshpass -p '$USERPASS' -v ssh -o StrictHostKeyChecking=no $USERNAME@${env.prod_ip} \"docker pull robertapretto/train-schedule:${env.BUILD_NUMBER}\""
                         try {
